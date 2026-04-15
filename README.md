@@ -1,6 +1,6 @@
 # Pneumonia Detection from Chest X-Rays Using Deep Learning
 
-![Python](https://img.shields.io/badge/Python-3.11-blue) ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.16.2-orange) ![Accuracy](https://img.shields.io/badge/Accuracy-88.3%25-green)
+![Python](https://img.shields.io/badge/Python-3.11-blue) ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.16.2-orange) ![Accuracy](https://img.shields.io/badge/Accuracy-88.0%25-green)
 
 Machine learning coursework project that trains a deep learning classifier to detect pneumonia from pediatric chest X-ray images. Compares transfer learning (ResNet50, VGG16) against training from scratch.
 
@@ -10,11 +10,11 @@ Machine learning coursework project that trains a deep learning classifier to de
 
 | Model | Accuracy | Pneumonia Recall | Normal Recall |
 |---|---|---|---|
-| ResNet50 (ImageNet pretrained) | **88.3%** | 90.5% | 84.6% |
-| VGG16 (ImageNet pretrained) | 80.1% | 91.8% | 60.7% |
-| ResNet50 (from scratch) | 86.2% | 87.9% | 83.3% |
+| ResNet50 (ImageNet pretrained) | **88.0%** | 95.9% | 74.8% |
+| VGG16 (ImageNet pretrained) | 85.1% | 86.4% | 82.9% |
+| ResNet50 (from scratch) | 83.5% | 82.3% | 85.5% |
 
-ResNet50 with ImageNet pretraining achieves the best overall performance and the most balanced recall across both classes.
+ResNet50 with ImageNet pretraining achieves the best overall accuracy and highest pneumonia recall, making it well-suited for clinical screening where minimizing missed cases is critical.
 
 ---
 
@@ -81,10 +81,11 @@ Tested on Python 3.11, TensorFlow 2.16.2, Apple M4 Max (Metal GPU backend).
 
 ## Key Findings
 
-- Transfer learning converges ~4× faster than training from scratch (36s/epoch vs 145s/epoch)
+- Transfer learning converges ~4× faster than training from scratch (~45s/epoch vs ~130s/epoch)
 - Fine-tuning the upper ResNet layers is essential — phase 1 alone reaches only ~52% accuracy
-- VGG16 develops a pneumonia bias (61% normal recall) due to weaker feature learning
-- Scratch-trained ResNet50 achieves similar final accuracy but shows unstable validation behavior throughout training, suggesting overfitting risk in deployment
+- ResNet50 (ImageNet) achieves highest pneumonia recall (95.9%), minimizing missed diagnoses
+- VGG16 provides the most balanced recall across both classes (86.4% / 82.9%)
+- Scratch-trained ResNet50 shows highly unstable validation AUC (ranging 0.42–0.94 across epochs), indicating unreliable generalization despite reasonable test accuracy
 
 ---
 
